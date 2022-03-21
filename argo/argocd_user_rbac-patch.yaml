@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argocd
+data:
+  policy.default: role:readonly
+  policy.csv: |
+    p, role:deployer, applications, get, instavote/*, allow
+    p, role:deployer, applications, sync, instavote/*, allow
+    p, role:deployer, projects, get, instavote, allow
+    g, jenkins, role:deployer
