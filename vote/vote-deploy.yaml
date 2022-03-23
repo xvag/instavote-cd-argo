@@ -18,7 +18,7 @@ spec:
         app: vote
     spec:
       containers:
-      - image: xvag/vote2:latest
+      - image: xvag/instavote-vote
         name: vote
         ports:
         - containerPort: 80
