@@ -18,7 +18,7 @@ spec:
         app: worker
     spec:
       containers:
-      - image: xvag/worker2:v42
+      - image: xvag/worker2:v62
         name: worker
         resources: {}
 status: {}
