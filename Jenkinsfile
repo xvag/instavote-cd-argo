@@ -10,8 +10,8 @@ agent {
   }
 }
 
-/*  stages {
-    stage('Daily Compliance Run') {
+  stages {
+/*    stage('Daily Compliance Run') {
       steps{
         echo 'Running a compliance scan with inspec....'
           script{
@@ -33,13 +33,13 @@ agent {
             }
           }
       }
-    }
-  }*/
+    }*/
 
-  stage('Scan k8s Deploy Code') {
-    steps {
-      container('docker-tools') {
-        sh 'kubesec scan worker/worker-deploy.yaml'
+    stage('Scan k8s Deploy Code') {
+      steps {
+        container('docker-tools') {
+          sh 'kubesec scan worker/worker-deploy.yaml'
+        }
       }
     }
   }
