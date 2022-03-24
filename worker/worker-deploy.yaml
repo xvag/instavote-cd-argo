@@ -19,6 +19,7 @@ spec:
       labels:
         app: worker
     spec:
+      automountServiceAccountToken: false
       containers:
       - image: xvag/worker2:v62
         name: worker
