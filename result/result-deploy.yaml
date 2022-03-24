@@ -18,7 +18,7 @@ spec:
         app: result
     spec:
       containers:
-      - image: xvag/result2:v50
+      - image: xvag/result2:latest
         name: result
         resources: {}
 status: {}
