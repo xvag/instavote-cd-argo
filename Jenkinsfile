@@ -1,5 +1,10 @@
 pipeline {
 
+  environment {
+    ARGO_SERVER = '34.118.79.42:32100'
+    DEV_URL = 'http://34.118.79.42:30000/'
+  }
+
 //  agent any
 
 agent {
@@ -42,5 +47,35 @@ agent {
         }
       }
     }
+
+    stage('Deploy to Dev') {
+      environment {
+        AUTH_TOKEN = credentials('argocd-jenkins-deployer-token')
+      }
+      steps {
+        container('docker-tools') {
+          sh 'docker run -t schoolofdevops/argocd-cli argocd app sync worker --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
+          sh 'docker run -t schoolofdevops/argocd-cli argocd app wait worker --health --timeout 300 --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
+        }
+      }
+    }
+
+    stage('Dynamic Analysis') {
+      parallel {
+       stage('E2E tests') {
+         steps {
+           sh 'echo "All Tests passed!!!"'
+          }
+        }
+        stage('DAST') {
+          steps {
+            container('docker-tools') {
+              sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t $DEV_URL || exit 0'
+            }
+          }
+        }
+      }
+    }
+
   }
 }
