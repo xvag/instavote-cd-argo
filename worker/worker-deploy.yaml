@@ -20,5 +20,12 @@ spec:
       containers:
       - image: xvag/worker2:v62
         name: worker
-        resources: {}
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
+
 status: {}
