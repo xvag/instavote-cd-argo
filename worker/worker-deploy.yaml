@@ -20,6 +20,7 @@ spec:
         app: worker
     spec:
       automountServiceAccountToken: false
+      serviceAccountName: worker
       containers:
       - image: xvag/worker2:v62
         name: worker
