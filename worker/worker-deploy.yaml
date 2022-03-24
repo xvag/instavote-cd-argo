@@ -5,6 +5,8 @@ metadata:
   labels:
     app: worker
   name: worker
+  annotations:
+    seccomp.security.alpha.kubernetes.io/pod: "runtime/default"
 spec:
   replicas: 1
   selector:
@@ -21,8 +23,8 @@ spec:
       - image: xvag/worker2:v62
         name: worker
         securityContext:
-          seccompProfile:
-            type: RuntimeDefault
+#          seccompProfile:
+#            type: RuntimeDefault
           capabilities:
             drop:
               - ALL
