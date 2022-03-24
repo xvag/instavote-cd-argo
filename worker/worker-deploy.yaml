@@ -21,6 +21,8 @@ spec:
       - image: xvag/worker2:v62
         name: worker
         securityContext:
+          seccompProfile:
+            type: RuntimeDefault
           capabilities:
             drop:
               - ALL
