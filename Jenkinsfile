@@ -48,7 +48,7 @@ agent {
       }
     }
 
-    stage('Deploy to Dev') {
+  /*  stage('Deploy to Dev') {
       environment {
         AUTH_TOKEN = credentials('argocd-jenkins-deployer-token')
       }
@@ -59,7 +59,7 @@ agent {
         }
       }
     }
-
+*/
     stage('Dynamic Analysis') {
       parallel {
        stage('E2E tests') {
