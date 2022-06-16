@@ -1,8 +1,8 @@
 pipeline {
 
   environment {
-    ARGO_SERVER = '34.118.79.42:32100'
-    DEV_URL = 'http://34.118.79.42:30000/'
+    ARGO_SERVER = '35.204.81.60:31000'
+    DEV_URL = 'http://35.204.81.60:30000/'
   }
 
 //  agent any
@@ -48,7 +48,7 @@ agent {
       }
     }
 
-  /*  stage('Deploy to Dev') {
+    stage('Deploy to Dev') {
       environment {
         AUTH_TOKEN = credentials('argocd-jenkins-deployer-token')
       }
@@ -59,7 +59,7 @@ agent {
         }
       }
     }
-*/
+
     stage('Dynamic Analysis') {
       parallel {
        stage('E2E tests') {
