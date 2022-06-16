@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    ARGO_SERVER = '35.204.81.60:31000'
+    ARGO_SERVER = 'https://35.204.81.60:31000'
     DEV_URL = 'http://35.204.81.60:30000/'
   }
 
