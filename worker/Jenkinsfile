@@ -7,13 +7,13 @@ pipeline {
 
 //  agent any
 
-agent {
-  kubernetes {
-    yamlFile 'build-agent.yaml'
-    defaultContainer 'docker-tools'
-    idleMinutes 1
+  agent {
+    kubernetes {
+      yamlFile 'build-agent.yaml'
+      defaultContainer 'docker-tools'
+      idleMinutes 1
+    }
   }
-}
 
   stages {
 /*    stage('Daily Compliance Run') {
@@ -39,6 +39,30 @@ agent {
           }
       }
     }*/
+
+    stage('Image Analysis') {
+      when {
+        branch 'master'
+        changeset "**/worker/**"
+      }
+      parallel {
+        stage('Image Linting') {
+          steps {
+            container('docker-tools') {
+              sh "dockle docker.io/xvag/worker2:latest"
+            }
+          }
+        }
+        stage('Image Scan') {
+          steps {
+            container('docker-tools') {
+              sh "trivy image --exit-code 1 xvag/worker2:latest"
+              //sh "trivy image xvag/worker2:v${env.BUILD_ID}"
+            }
+          }
+        }
+      }
+    }
 
     stage('Scan k8s Deploy Code') {
       steps {
