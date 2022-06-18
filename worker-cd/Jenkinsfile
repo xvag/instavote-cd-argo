@@ -9,7 +9,7 @@ pipeline {
 
   agent {
     kubernetes {
-      yamlFile 'worker/build-agent.yaml'
+      yamlFile 'worker-cd/build-agent.yaml'
       defaultContainer 'docker-tools'
       idleMinutes 1
     }
