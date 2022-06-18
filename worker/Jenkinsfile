@@ -41,10 +41,6 @@ pipeline {
     }*/
 
     stage('Image Analysis') {
-      when {
-        branch 'master'
-        changeset "**/worker/**"
-      }
       parallel {
         stage('Image Linting') {
           steps {
