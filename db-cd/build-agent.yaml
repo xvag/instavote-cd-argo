@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: db-cd
+spec:
+
+  containers:
+    - name: docker-tools
+      image: rmkanda/docker-tools:latest
+      command:
+        - cat
+      tty: true
+      volumeMounts:
+        - mountPath: /var/run
+          name: docker-sock
+        - mountPath: /tmp/trivycache/
+          name: trivycache
+
+  volumes:
+    - name: docker-sock
+      hostPath:
+        path: /var/run
+    - name: trivycache
+      hostPath:
+        path: /tmp/trivycache/
