@@ -52,8 +52,8 @@ pipeline {
         stage('Image Scan') {
           steps {
             container('docker-tools') {
-              sh "trivy image --exit-code 1 xvag/worker2:v62s"
-              //sh "trivy image xvag/worker2:v${env.BUILD_ID}"
+              //sh "trivy image --exit-code 1 xvag/worker2:v62"
+              sh "trivy image xvag/worker2:v62"
             }
           }
         }
