@@ -38,13 +38,13 @@ pipeline {
       }
     }
 
-    stage('Scan k8s Deploy Code') {
+    /*stage('Scan k8s Deploy Code') {
       steps {
         container('docker-tools') {
           sh 'kubesec scan db/deployments/db-deploy.yaml'
         }
       }
-    }
+    }*/
 
     stage('Deploy to Dev') {
       steps {
