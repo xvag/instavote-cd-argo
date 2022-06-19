@@ -41,8 +41,7 @@ pipeline {
     stage('Scan k8s Deploy Code') {
       steps {
         container('docker-tools') {
-          sh 'kubesec scan db/db-deploy.yaml'
-          sh 'kubesec scan db/db-svc.yaml'
+          sh 'kubesec scan db/deployments/db-deploy.yaml'
         }
       }
     }
