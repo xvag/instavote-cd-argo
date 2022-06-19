@@ -1,15 +1,14 @@
 pipeline {
 
   environment {
-    ARGO_SERVER = '34.91.149.54:31000'
-    DEV_URL = 'http://34.91.149.54:30000/'
+    AUTH_TOKEN = credentials('argocd-jenkins-deployer-token')
+    ARGO_SERVER = credentials('argo-server-ip')
+    DEV_URL = credentials('vote-url')
   }
-
-//  agent any
 
   agent {
     kubernetes {
-      yamlFile 'redis-cd/build-agent.yaml'
+      yamlFile 'redis/build-agent.yaml'
       defaultContainer 'docker-tools'
       idleMinutes 1
     }
@@ -40,37 +39,16 @@ pipeline {
     stage('Scan k8s Deploy Code') {
       steps {
         container('docker-tools') {
-          sh 'kubesec scan redis/redis-deploy.yaml'
-          sh 'kubesec scan redis/redis-svc.yaml'
+          sh 'kubesec scan redis/deployments/redis-deploy.yaml'
         }
       }
     }
 
     stage('Deploy to Dev') {
-      environment {
-        AUTH_TOKEN = credentials('argocd-jenkins-deployer-token')
-      }
       steps {
         container('docker-tools') {
           sh 'docker run -t schoolofdevops/argocd-cli argocd app sync redis --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
           sh 'docker run -t schoolofdevops/argocd-cli argocd app wait redis --health --timeout 300 --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
-        }
-      }
-    }
-
-    stage('Dynamic Analysis') {
-      parallel {
-       stage('E2E tests') {
-         steps {
-           sh 'echo "All Tests passed!!!"'
-          }
-        }
-        stage('DAST') {
-          steps {
-            container('docker-tools') {
-              sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t $DEV_URL || exit 0'
-            }
-          }
         }
       }
     }
