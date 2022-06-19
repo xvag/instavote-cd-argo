@@ -18,7 +18,7 @@ pipeline {
 
   stages {
 
-    stage('Image Analysis') {
+/*    stage('Image Analysis') {
       parallel {
         stage('Image Linting') {
           steps {
@@ -38,7 +38,7 @@ pipeline {
       }
     }
 
-    /*stage('Scan k8s Deploy Code') {
+    stage('Scan k8s Deploy Code') {
       steps {
         container('docker-tools') {
           sh 'kubesec scan db/deployments/db-deploy.yaml'
