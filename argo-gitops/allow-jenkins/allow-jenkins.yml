@@ -1,0 +1,22 @@
+# Create a jenkins user on ArgoCD to allow Jenkins sync apps on ArgoCD
+# Run on host with kubectl and argocd installed and configured to target cluster/argo-server
+
+- hosts: localhost
+  tasks:
+
+  - name: Create jenkins user to ArgoCD
+    shell: |
+      kubectl patch cm -n argocd argocd-cm --patch-file argocd_create_user-patch.yaml
+
+  - name: Give permissions to jenkins user on ArgoCD
+    shell: |
+      kubectl patch cm -n argocd argocd-rbac-cm --patch-file argocd_user_rbac-patch.yaml
+
+  - name: Create access token
+    shell: |
+      argocd account generate-token --account jenkins
+    register: jenkins-token
+
+  - name: Token to allow Jenkins deploy on ArgoCD
+    debug:
+      msg: "{{ jenkins-token }}"
