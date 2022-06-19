@@ -1,0 +1,67 @@
+# Run on host with kubectl and argocd installed and configured to target cluster/argo-server
+
+- hosts: localhost
+  tasks:
+
+  - name: Create instavote namespace
+    shell: |
+      kubectl create ns instavote
+
+  - name: Create instavote project
+    shell: |
+      argocd proj create instavote -d "*,*" -s "*" --allow-cluster-resource "*/*"
+
+  - name: Create Vote app
+    shell: |
+      argocd app create vote --project instavote \
+        --repo https://github.com/xvag/instavote-deploy-argo.git \
+        --path vote/deployments --dest-namespace instavote \
+        --dest-server https://kubernetes.default.svc --directory-recurse
+
+  - name: Sync Vote app
+    shell: |
+      argocd app sync vote
+
+  - name: Create Redis app
+    shell: |
+      argocd app create redis --project instavote \
+        --repo https://github.com/xvag/instavote-deploy-argo.git \
+        --path redis/deployments --dest-namespace instavote \
+        --dest-server https://kubernetes.default.svc --directory-recurse
+
+  - name: Sync Redis app
+    shell: |
+      argocd app sync redis
+
+  - name: Create Worker app
+    shell: |
+      argocd app create worker --project instavote \
+        --repo https://github.com/xvag/instavote-deploy-argo.git \
+        --path worker/deployments --dest-namespace instavote \
+        --dest-server https://kubernetes.default.svc --directory-recurse
+
+  - name: Sync Worker app
+    shell: |
+      argocd app sync worker
+
+  - name: Create db app
+    shell: |
+      argocd app create db --project instavote \
+        --repo https://github.com/xvag/instavote-deploy-argo.git \
+        --path db/deployments --dest-namespace instavote \
+        --dest-server https://kubernetes.default.svc --directory-recurse
+
+  - name: Sync db app
+    shell: |
+      argocd app sync db
+
+  - name: Create Result app
+    shell: |
+      argocd app create result --project instavote \
+        --repo https://github.com/xvag/instavote-deploy-argo.git \
+        --path result/deployments --dest-namespace instavote \
+        --dest-server https://kubernetes.default.svc --directory-recurse
+
+  - name: Sync Result app
+    shell: |
+      argocd app sync result
