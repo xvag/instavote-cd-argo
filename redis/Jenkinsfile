@@ -3,6 +3,8 @@ pipeline {
   environment {
     AUTH_TOKEN = credentials('argocd-jenkins-deployer-token')
     ARGO_SERVER = credentials('argo-server-ip')
+    VOTE_APP_URL = credentials('vote-app-url')
+    RESULT_APP_URL = credentials('result-app-url')
   }
 
   agent {
@@ -48,6 +50,25 @@ pipeline {
         container('docker-tools') {
           sh 'docker run -t schoolofdevops/argocd-cli argocd app sync redis --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
           sh 'docker run -t schoolofdevops/argocd-cli argocd app wait redis --health --timeout 300 --insecure --server $ARGO_SERVER --auth-token $AUTH_TOKEN'
+        }
+      }
+    }
+
+    stage('Dynamic Analysis') {
+      parallel {
+       stage('Vote front-end DAST') {
+         steps {
+           container('docker-tools') {
+             sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t $VOTE_APP_URL || exit 0'
+           }
+         }
+       }
+       stage('Result front-end DAST') {
+          steps {
+            container('docker-tools') {
+              sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t $RESULT_APP_URL || exit 0'
+            }
+          }
         }
       }
     }
