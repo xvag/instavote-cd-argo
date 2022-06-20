@@ -6,10 +6,9 @@
 Deploy the applications on Kubernetes with ArgoCD manually, using the manifests in `<application-name>/deployments` folder.
 
 ##### Automatically  
-Deploy using Automation GitOps from `argo-gitops/deploy-instavote` folder.  
-Requirements:  
-- Ansible  
-- kubectl (configured with the working kubernetes cluster)  
-- argocd CLI (logged in to the ArgoCD server)  
+Deploy running `$ ansible-playbook argo-gitops/deploy-instavote/deploy-instavote.yml`.
 
-Deploy with `$ ansible-playbook deploy-instavote.yml`
+Requirements:
+- Ansible
+- kubectl (configured with the working kubernetes cluster)
+- argocd CLI (logged in to the ArgoCD server)
