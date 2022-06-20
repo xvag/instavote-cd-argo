@@ -17,7 +17,7 @@ Deploy running `$ ansible-playbook argo-gitops/deploy-instavote/deploy-instavote
 Run: `$ ansible-playbook argo-gitops/allow-jenkins/allow-jenkins.yml`  
 
 #### 02. Create the Pipelines
-Add variables as secret text, in Global Credentials:
+Add the following variables as secret text, in `Manage Jenkins > Manage Credentials > Global`:
 - argocd-jenkins-deployer-token = The token produced in the previous step.
 - argo-server-ip                = in the form of [IP]:[port]
 - vote-app-url                  = in the form of http://[IP]:[port]
