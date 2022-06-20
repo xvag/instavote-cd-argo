@@ -23,7 +23,7 @@ Add the following variables as secret text, in `Manage Jenkins > Manage Credenti
 - vote-app-url                  = in the form of http://[IP]:[port]
 - result-app-url                = in the form of http://[IP]:[port]
 
-Create a new Jenkins Multibranch Pipeline <b>for each app</b> with:
+Create a new Jenkins Multibranch Pipeline <b>for each app</b> (db,redis,result,worker,vote) with:
 - Source as GitHub repo (eg. https://github.com/xvag/instavote-cd-argo.git)
 - Build mode "by Jenkinsfile" with Script Path pointing to the Jenkinsfile (eg. worker/Jenkinsfile)
 
