@@ -26,7 +26,8 @@ Create new Multibranch Pipelines on Jenkins, with:
 - Source as GitHub repo (eg. https://github.com/xvag/instavote-cd-argo.git)
 - Build mode "by Jenkinsfile" with Script Path pointing to the Jenkinsfile (eg. vote/Jenkinsfile)
 
-
+#### The CD Pipelines:
+![CD Pipeline](cd-pipeline.png)
 
 ### Requirements:
 - Working ArgoCD Setup
