@@ -30,7 +30,7 @@ Create new Multibranch Pipelines on Jenkins, with:
 
 ### Requirements:
 - Working ArgoCD Setup
-- Working Jenkins Setup, with Kubernets Cloud
+- Working Jenkins Setup, with Kubernetes Cloud
 - Ansible with kubernetes module
 - kubectl (configured with the working kubernetes cluster)
 - argocd CLI (logged in to the ArgoCD server)
