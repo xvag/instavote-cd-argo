@@ -4,19 +4,41 @@
 - hosts: localhost
   tasks:
 
+# kubectl patch cm -n argocd argocd-cm --patch-file argocd_create_user-patch.yaml
   - name: Create jenkins user to ArgoCD
-    shell: |
-      kubectl patch cm -n argocd argocd-cm --patch-file argocd_create_user-patch.yaml
+    k8s:
+      definition:
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: argocd-cm
+          namespace: argocd
+        data:
+          accounts.jenkins: apiKey
+          accounts.jenkins.enabled: "true"
 
+# kubectl patch cm -n argocd argocd-rbac-cm --patch-file argocd_user_rbac-patch.yaml
   - name: Give permissions to jenkins user on ArgoCD
-    shell: |
-      kubectl patch cm -n argocd argocd-rbac-cm --patch-file argocd_user_rbac-patch.yaml
+    k8s:
+      definition:
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: argocd-rbac-cm
+          namespace: argocd
+        data:
+          policy.default: role:readonly
+          policy.csv: |
+            p, role:deployer, applications, get, instavote/*, allow
+            p, role:deployer, applications, sync, instavote/*, allow
+            p, role:deployer, projects, get, instavote, allow
+            g, jenkins, role:deployer
 
   - name: Create access token
     shell: |
       argocd account generate-token --account jenkins
-    register: jenkins-token
+    register: jenkins_token
 
   - name: Token to allow Jenkins deploy on ArgoCD
     debug:
-      msg: "{{ jenkins-token }}"
+      msg: "{{ jenkins_token.stdout }}"
