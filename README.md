@@ -12,6 +12,7 @@ Deploy running `$ ansible-playbook argo-gitops/deploy-instavote/deploy-instavote
 
 
 ### Create Continuous Deployment Pipelines:
+![CD Pipeline](cd-pipeline.png)
 #### 01. Allow Jenkins to Deploy on ArgoCD
 Run `$ ansible-playbook argo-gitops/allow-jenkins/allow-jenkins.yml`  
 
@@ -25,9 +26,6 @@ Add variables as secret text, in Global Credentials:
 Create new Multibranch Pipelines on Jenkins, with:
 - Source as GitHub repo (eg. https://github.com/xvag/instavote-cd-argo.git)
 - Build mode "by Jenkinsfile" with Script Path pointing to the Jenkinsfile (eg. vote/Jenkinsfile)
-
-#### The CD Pipelines:
-![CD Pipeline](cd-pipeline.png)
 
 ### Requirements:
 - Working ArgoCD Setup
