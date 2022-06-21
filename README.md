@@ -34,6 +34,6 @@ Execute: `$ ansible-playbook allow-jenkins.yml`, inside the `argo-gitops/jenkins
 - Working Kubernetes Cluster
 - Working ArgoCD Setup
 - Working Jenkins Setup, with Kubernetes Cloud
-- Ansible with kubernetes module
+- Ansible (with kubernetes module)
 - kubectl (configured with the working kubernetes cluster)
 - argocd CLI (logged in to the ArgoCD server)
