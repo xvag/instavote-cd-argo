@@ -14,7 +14,7 @@ Deploy by executing: `$ ansible-playbook deploy-instavote.yml`, inside the `argo
 
 Create Continuous Deployment Pipelines
 -----
-##### This is the CD Pipeline for all the apps:
+##### This is the CD Pipeline created by the Jenkinsfile:
 ![CD Pipeline](cd-pipeline.png)
 #### 01. Allow Jenkins to Deploy on ArgoCD
 Execute: `$ ansible-playbook allow-jenkins.yml`, inside the `argo-gitops/jenkins/` folder.  
