@@ -17,13 +17,13 @@ Deploy running `$ ansible-playbook argo-gitops/deploy-instavote/deploy-instavote
 Run: `$ ansible-playbook argo-gitops/allow-jenkins/allow-jenkins.yml`  
 
 #### 02. Create the Pipelines
-Add the following variables as secret text, in `Manage Jenkins > Manage Credentials > Global`:
+01. Add the following variables as secret text, in `Manage Jenkins > Manage Credentials > Global`:
 - argocd-jenkins-deployer-token = The token produced in the previous step.
 - argo-server-ip                = in the form of [IP]:[port]
 - vote-app-url                  = in the form of http://[IP]:[port]
 - result-app-url                = in the form of http://[IP]:[port]
 
-Create a new Jenkins Multibranch Pipeline <b>for each app</b> (db,redis,result,worker,vote) with:
+02. Create a new Jenkins Multibranch Pipeline <b>for each app</b> (db,redis,result,worker,vote) with:
 - Source as GitHub repo (eg. https://github.com/xvag/instavote-cd-argo.git)
 - Build mode "by Jenkinsfile" with Script Path pointing to the Jenkinsfile (eg. worker/Jenkinsfile)
 
