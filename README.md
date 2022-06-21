@@ -1,6 +1,7 @@
 # Instavote App - Continuous Deployment with ArgoCD
 
-### Deploy the applications:
+Deploy the applications
+-----
 
 #### Manually  
 Deploy the applications on Kubernetes with ArgoCD manually, using the manifests in `<application-name>/deployments` folder.
@@ -11,7 +12,8 @@ Deploy the applications on Kubernetes with ArgoCD manually, using the manifests 
 Deploy running `$ ansible-playbook argo-gitops/deploy-instavote/deploy-instavote.yml`.
 
 
-### Create Continuous Deployment Pipelines
+Create Continuous Deployment Pipelines
+-----
 ##### This is the CD Pipeline for all the apps:
 ![CD Pipeline](cd-pipeline.png)
 #### 01. Allow Jenkins to Deploy on ArgoCD
