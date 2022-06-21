@@ -9,7 +9,7 @@ Deploy the applications on Kubernetes with ArgoCD manually, using the manifests 
 - or
 
 #### Automatically  
-Deploy running `$ ansible-playbook argo-gitops/deploy-instavote/deploy-instavote.yml`.
+Deploy running `$ ansible-playbook deploy-instavote.yml`, inside the `argo-gitops/deploy-instavote/` folder.
 
 
 Create Continuous Deployment Pipelines
