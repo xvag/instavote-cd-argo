@@ -30,7 +30,8 @@ Execute: `$ ansible-playbook allow-jenkins.yml`, inside the `argo-gitops/jenkins
 - Source as GitHub repo (eg. https://github.com/xvag/instavote-cd-argo.git)
 - Build mode "by Jenkinsfile" with Script Path pointing to the Jenkinsfile (eg. worker/Jenkinsfile)
 
-### Requirements:
+### General Requirements:
+- Working Kubernetes Cluster
 - Working ArgoCD Setup
 - Working Jenkins Setup, with Kubernetes Cloud
 - Ansible with kubernetes module
