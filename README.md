@@ -17,7 +17,7 @@ Create Continuous Deployment Pipelines
 ##### This is the CD Pipeline for all the apps:
 ![CD Pipeline](cd-pipeline.png)
 #### 01. Allow Jenkins to Deploy on ArgoCD
-Run: `$ ansible-playbook argo-gitops/allow-jenkins/allow-jenkins.yml`  
+Execute: `$ ansible-playbook allow-jenkins.yml`, inside the `argo-gitops/allow-jenkins/` folder.  
 
 #### 02. Create the Pipelines
 01. Add the following variables as secret text, in `Manage Jenkins > Manage Credentials > Global`:
