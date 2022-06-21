@@ -9,7 +9,7 @@ Deploy the applications on Kubernetes with ArgoCD manually, using the manifests 
 - or
 
 #### Automatically  
-Deploy by executing: `$ ansible-playbook deploy-instavote.yml`, inside the `argo-gitops/deploy-instavote/` folder.
+Deploy by executing: `$ ansible-playbook deploy-instavote.yml`, inside the `argo-gitops/instavote/` folder.
 
 
 Create Continuous Deployment Pipelines
@@ -17,7 +17,7 @@ Create Continuous Deployment Pipelines
 ##### This is the CD Pipeline for all the apps:
 ![CD Pipeline](cd-pipeline.png)
 #### 01. Allow Jenkins to Deploy on ArgoCD
-Execute: `$ ansible-playbook allow-jenkins.yml`, inside the `argo-gitops/allow-jenkins/` folder.  
+Execute: `$ ansible-playbook allow-jenkins.yml`, inside the `argo-gitops/jenkins/` folder.  
 
 #### 02. Create the Pipelines
 01. Add the following variables as secret text, in `Manage Jenkins > Manage Credentials > Global`:
